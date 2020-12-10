@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "425405329397",
+    "firebase_url": "https://ubertaxi-587ee.firebaseio.com",
+    "project_id": "ubertaxi-587ee",
+    "storage_bucket": "ubertaxi-587ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425405329397:android:8b2779cb1ffab65e933abc",
+        "android_client_info": {
+          "package_name": "com.equipo.ubertaxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425405329397-n7alv6sg20rj6l8rkoii7eqjqlkvt40g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.equipo.ubertaxi",
+            "certificate_hash": "5a06bb16ecf3c51a1ca4ec4c5e42076b8b9b0df0"
+          }
+        },
+        {
+          "client_id": "425405329397-l46ep3vnviph2gkt188m9buhu9e1n3a7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjFLds7nsVgctPRyVgiisjnBK5LBc1cSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425405329397-l46ep3vnviph2gkt188m9buhu9e1n3a7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

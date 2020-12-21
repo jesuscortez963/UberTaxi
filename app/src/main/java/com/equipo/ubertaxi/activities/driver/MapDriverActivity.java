@@ -29,6 +29,7 @@ import com.equipo.ubertaxi.activities.MainActivity;
 import com.equipo.ubertaxi.includes.MyToolbar;
 import com.equipo.ubertaxi.providers.AuthProvider;
 import com.equipo.ubertaxi.providers.GeofireProvider;
+import com.equipo.ubertaxi.providers.TokenProvider;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -52,6 +53,8 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
     private GeofireProvider mGeofireProvider;
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocation;
+
+    private TokenProvider mTokenProvider;
 
     //PARA SOLICITAR LOS PERMISOS DE UBICACION
     private final static int LOCATION_REQUEST_CODE = 1;
@@ -112,6 +115,8 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
 
         mAuthProvider = new AuthProvider();
 
+        mTokenProvider = new TokenProvider();
+
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
         mGeofireProvider= new GeofireProvider();
@@ -129,6 +134,7 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
 
             }
         });
+        generateToken();
     }
 
     private void updateLocation(){
@@ -152,6 +158,8 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setSmallestDisplacement(5);
+
+
 
 
 
@@ -304,5 +312,9 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
         Intent intent = new Intent(MapDriverActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    void generateToken(){
+        mTokenProvider.create(mAuthProvider.getId());
+
     }
 }

@@ -32,6 +32,7 @@ import com.equipo.ubertaxi.activities.MainActivity;
 import com.equipo.ubertaxi.includes.MyToolbar;
 import com.equipo.ubertaxi.providers.AuthProvider;
 import com.equipo.ubertaxi.providers.GeofireProvider;
+import com.equipo.ubertaxi.providers.TokenProvider;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.api.Status;
@@ -72,6 +73,8 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
     private FusedLocationProviderClient mFusedLocation;
 
     private GeofireProvider mGeofireProvider;
+
+    private TokenProvider mTokenProvider;
 
     //PARA SOLICITAR LOS PERMISOS DE UBICACION
     private final static int LOCATION_REQUEST_CODE = 1;
@@ -151,6 +154,8 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
 
         mAuthProvider = new AuthProvider();
 
+        mTokenProvider = new TokenProvider();
+
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
         mGeofireProvider = new GeofireProvider();
@@ -172,6 +177,8 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
                 RequestDriver();
             }
         });
+
+        generateToken();
 
     }
 
@@ -264,7 +271,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void getActiveDrivers() {
-        mGeofireProvider.getActiveDrivers(mCurrentLatLng).addGeoQueryEventListener(new GeoQueryEventListener() {
+        mGeofireProvider.getActiveDrivers(mCurrentLatLng,10).addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                 //AÑADIREMOS LOS MARCADORES DE LOS CONDUCTOREEEEES QUE SE CONECTEN A LA APLICACION
@@ -467,5 +474,10 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
         Intent intent = new Intent(MapClientActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    void generateToken(){
+        mTokenProvider.create(mAuthProvider.getId());
+
     }
 }

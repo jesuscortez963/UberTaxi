@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
@@ -39,14 +38,11 @@
                 android:layout_marginLeft="5dp"
                 android:textColorHint="@color/colorWhite">
 
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre completo"
-
-                    
                     android:inputType="text"
                     android:textColor="@color/colorWhite"
                     >

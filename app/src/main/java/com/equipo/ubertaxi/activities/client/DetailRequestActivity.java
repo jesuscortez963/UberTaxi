@@ -2,12 +2,16 @@ package com.equipo.ubertaxi.activities.client;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.equipo.ubertaxi.R;
+import com.equipo.ubertaxi.activities.driver.RegisterDriverActivity;
 import com.equipo.ubertaxi.includes.MyToolbar;
 import com.equipo.ubertaxi.providers.GoogleApiProvider;
 import com.equipo.ubertaxi.utils.DecodePoints;
@@ -58,6 +62,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private TextView mTextViewTime;
     private TextView mTextViewDistance;
 
+    private Button mButtonRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +91,26 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
         mTextViewDestination = findViewById(R.id.textViewDestination);
         mTextViewDistance = findViewById(R.id.textViewDistance);
         mTextViewTime = findViewById(R.id.textViewTime);
+        mButtonRequest = findViewById(R.id.btnRequestNow);
 
         mTextViewOrigin.setText(mExtraOrigin);
         mTextViewDestination.setText(mExtraDestination);
 
+        mButtonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRequestDriver();
+            }
+        });
 
+    }
 
+    private void goToRequestDriver() {
+        Intent intent = new Intent(DetailRequestActivity.this, RequestDriverActivity.class);
+        intent.putExtra("origin_lat",mOriginLatLng.latitude);
+        intent.putExtra("origin_lng",mOriginLatLng.longitude);
+        startActivity(intent);
+        finish();
     }
 
     private void drawRoute() {
@@ -116,7 +136,7 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
                     JSONArray legs = route.getJSONArray("legs");
                     JSONObject leg = legs.getJSONObject(0);
                     JSONObject distance = leg.getJSONObject("distance");
-                    JSONObject duration = leg.getJSONObject("duration_in_traffic");
+                    JSONObject duration = leg.getJSONObject("duration");
                     String distanceText = distance.getString("text");
                     String durationText = duration.getString("text");
                     mTextViewTime.setText(durationText);

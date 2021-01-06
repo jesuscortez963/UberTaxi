@@ -12,6 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UberTaxi">
+
+        <receiver android:name=".receivers.AcceptReceiver"
+            android:enabled="true"></receiver>
+        <receiver android:name=".receivers.CancelReceiver"
+            android:enabled="true"></receiver>
+
         <service android:name=".services.MyFirebaseMessagingClient">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>

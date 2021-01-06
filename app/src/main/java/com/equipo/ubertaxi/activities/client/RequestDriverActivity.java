@@ -197,7 +197,12 @@ public class RequestDriverActivity extends AppCompatActivity {
                     String token=snapshot.child("token").getValue().toString();
                     Map<String,String> map =new HashMap<>();
                     map.put("title","SOLICITUD DE SERVICIO A " + time +"DE TU POSICION");
-                    map.put("body","Un cliente esta solicitando el servicio a una distancia de " + km);
+                    map.put("body",
+                            "Un cliente esta solicitando un servicio a una distancia de " + km + "\n" +
+                                    "Recoger en: " + mExtraOrigin + "\n" +
+                                    "Destino: " + mExtraDestination
+                    );
+                    map.put("idClient", mAuthProvider.getId());
                     FCMBody fcmBody = new FCMBody(token,"high",map);
                     mNotificationProvider.sendNotification(fcmBody).enqueue(new Callback<FCMResponse>() {
                         @Override

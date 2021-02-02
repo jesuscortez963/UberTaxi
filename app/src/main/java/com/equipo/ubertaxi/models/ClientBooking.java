@@ -1,6 +1,7 @@
 package com.equipo.ubertaxi.models;
 
 public class ClientBooking {
+    String idHistoryBooking;
     String idClient;
     String idDriver;
     String destination;
@@ -12,6 +13,10 @@ public class ClientBooking {
     double originLng;
     double destinationLat;
     double destinationLng;
+
+    public ClientBooking(){
+
+    }
 
     public ClientBooking(String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLng, double destinationLat, double destinationLng) {
         this.idClient = idClient;
@@ -25,6 +30,29 @@ public class ClientBooking {
         this.originLng = originLng;
         this.destinationLat = destinationLat;
         this.destinationLng = destinationLng;
+    }
+
+    public ClientBooking(String idHistoryBooking, String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLng, double destinationLat, double destinationLng) {
+        this.idHistoryBooking = idHistoryBooking;
+        this.idClient = idClient;
+        this.idDriver = idDriver;
+        this.destination = destination;
+        this.origin = origin;
+        this.time = time;
+        this.km = km;
+        this.status = status;
+        this.originLat = originLat;
+        this.originLng = originLng;
+        this.destinationLat = destinationLat;
+        this.destinationLng = destinationLng;
+    }
+
+    public String getIdHistoryBooking() {
+        return idHistoryBooking;
+    }
+
+    public void setIdHistoryBooking(String idHistoryBooking) {
+        this.idHistoryBooking = idHistoryBooking;
     }
 
     public String getIdClient() {

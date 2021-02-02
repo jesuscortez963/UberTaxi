@@ -53,7 +53,7 @@ public class RegisterDriverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_driver);
         MyToolbar.show(RegisterDriverActivity.this,"Registro conductor", true);
-        mDialog = new SpotsDialog.Builder().setContext(RegisterDriverActivity.this).setMessage("espere un momento").build();
+        mDialog = new SpotsDialog.Builder().setContext(RegisterDriverActivity.this).setMessage("Espere un momento").build();
 
 
 

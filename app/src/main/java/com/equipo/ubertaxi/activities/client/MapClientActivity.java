@@ -124,6 +124,8 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
 
                      */
                     //OBTENER LA LOCALIZACION DEL USUARIO EN TIEMPÓ REAL
+                    //acabo de modificaresta madre
+                    if (mIsFirstTime) {
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                             new CameraPosition.Builder()
                                     .target(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -131,7 +133,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
                                     .build()
                     ));
 
-                    if (mIsFirstTime) {
+
                         mIsFirstTime = false;
                         getActiveDrivers();
                         limitSearch();
@@ -158,7 +160,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
 
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
-        mGeofireProvider = new GeofireProvider();
+        mGeofireProvider = new GeofireProvider("active_drivers");
 
         mButtonRequestDriver = findViewById(R.id.btnRequestDriver);
 
@@ -199,8 +201,8 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void limitSearch(){
-        LatLng northSide = SphericalUtil.computeOffset(mCurrentLatLng,5000,0);
-        LatLng southSide = SphericalUtil.computeOffset(mCurrentLatLng,5000,180);
+        LatLng northSide = SphericalUtil.computeOffset(mCurrentLatLng,500,0);
+        LatLng southSide = SphericalUtil.computeOffset(mCurrentLatLng,500,180);
         mAutocomplete.setCountry("MEX");
         mAutocomplete.setLocationBias(RectangularBounds.newInstance(southSide,northSide));
         mAutocompleteDestination.setCountry("MEX");
@@ -332,7 +334,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //para instalar botones de menos y mas
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
 
 
         mMap.setOnCameraIdleListener(mCameraListener);
@@ -355,7 +357,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     if (gpsActived()){
                         mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-                        mMap.setMyLocationEnabled(true);
+                        mMap.setMyLocationEnabled(false);
                     }
                     else {
                         showAlertDialogNOGPS();
@@ -385,7 +387,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
                 return;
             }
             mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-            mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(false);
         }
         else if(requestCode == SETTINGS_REQUEST_CODE && !gpsActived()) {
             showAlertDialogNOGPS();
@@ -417,7 +419,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 if (gpsActived()){
                     mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-                    mMap.setMyLocationEnabled(true);
+                    mMap.setMyLocationEnabled(false);
                 }
                 else {
                     showAlertDialogNOGPS();
@@ -430,7 +432,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
         }else{
             if (gpsActived()){
                 mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-                mMap.setMyLocationEnabled(true);
+                mMap.setMyLocationEnabled(false);
             }
             else {
                 showAlertDialogNOGPS();
@@ -457,7 +459,7 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.driver_menu, menu);
+        getMenuInflater().inflate(R.menu.client_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -466,6 +468,14 @@ public class MapClientActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_logout){
             logout();
+        }
+        if (item.getItemId() == R.id.action_update){
+            Intent intent = new Intent(MapClientActivity.this, UpdateProfileActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_history){
+            Intent intent = new Intent(MapClientActivity.this, HistoryBookingClientActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

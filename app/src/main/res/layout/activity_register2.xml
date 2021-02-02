@@ -28,7 +28,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icon_user"/>
+                android:src="@drawable/ic_user2"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icon_email"/>
+                android:src="@drawable/ic_email2"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/icon_contrase_a"/>
+                android:src="@drawable/ic_baseline_vpn_key_24"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

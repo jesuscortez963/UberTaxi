@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences mPref;
 
+    private CircleImageView mCircleImageBack;
+
 
 
     @Override
@@ -47,24 +50,32 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        MyToolbar.show(this, "login de conductor",true);
+
 
 
 
         mTextInputEmail = findViewById(R.id.textInputEmail);
         mTextInputPassword=findViewById(R.id.textInputPassword);
         mButtonLogin=findViewById(R.id.btnLogin);
+        mCircleImageBack = findViewById(R.id.circleImageBack);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDialog = new SpotsDialog.Builder().setContext(LoginActivity.this).setMessage("espere un momento").build();
+        mDialog = new SpotsDialog.Builder().setContext(LoginActivity.this).setMessage("Espere un momento").build();
         mPref = getApplicationContext().getSharedPreferences("typeUser",MODE_PRIVATE);
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        mCircleImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -84,13 +95,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (user.equals("client")){
                                 Intent intent = new Intent(LoginActivity.this, MapClientActivity.class);
-                                intent .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
 
                             }
                             else{
                                 Intent intent = new Intent(LoginActivity.this, MapDriverActivity.class);
-                                intent .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
 
                             }

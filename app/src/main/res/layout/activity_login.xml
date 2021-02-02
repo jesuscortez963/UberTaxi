@@ -8,26 +8,49 @@
     android:background="@color/colorLogin"
     tools:context=".activities.LoginActivity">
 
-    <include layout="@layout/action_bar_toollbar"></include>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="200dp"
+        <com.github.florent37.shapeofview.shapes.ArcView
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/carro2" />
+            android:elevation="4dp"
+            app:shape_arc_cropDirection="outside"
+            app:shape_arc_height="20dp"
+            app:shape_arc_position="bottom">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/textViewNameBookingDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:text="UBER TAXI"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="26sp"
+                android:textStyle="bold"/>
+
+        </com.github.florent37.shapeofview.shapes.ArcView>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:layout_width="40dp"
@@ -62,7 +85,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp">
+
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -111,5 +137,26 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/carro2" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+
+        android:id="@+id/circleImageBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="left|top"
+        app:civ_circle_background_color="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,12 +64,13 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private TextView mTextViewDistance;
 
     private Button mButtonRequest;
+    private CircleImageView mCircleImageBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_request);
-        MyToolbar.show(this,"Tus datos",true);
+
 
         mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -80,6 +82,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
         mExtraDestinationLng = getIntent().getDoubleExtra("destination_lng", 0);
         mExtraOrigin = getIntent().getStringExtra("origin");
         mExtraDestination = getIntent().getStringExtra("destination");
+        mCircleImageBack = findViewById(R.id.circleImageBack);
+
 
 
         mOriginLatLng = new LatLng(mExtraOriginLat, mExtraOriginLng);
@@ -100,6 +104,13 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
             @Override
             public void onClick(View v) {
                 goToRequestDriver();
+            }
+        });
+
+        mCircleImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

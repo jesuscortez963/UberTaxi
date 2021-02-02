@@ -8,4 +8,7 @@
     <color name="colorBlueLight">#03A9F4</color>
     <color name="colorMain">#2980B9</color>
     <color name="colorLogin">#E5E7E9</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorMorado">#29144B</color>
+    <color name="colorMoradoB">#241447</color>
 </resources>

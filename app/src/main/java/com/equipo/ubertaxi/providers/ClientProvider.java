@@ -22,4 +22,15 @@ public class ClientProvider {
         map.put("email",client.getEmail());
         return mDatabase.child(client.getId()).setValue(map);
     }
+
+    public Task<Void> update(Client client){
+        Map<String,Object> map= new HashMap<>();
+        map.put("name",client.getName());
+        map.put("image",client.getImage());
+        return mDatabase.child(client.getId()).updateChildren(map);
+    }
+
+    public DatabaseReference getClient(String idClient){
+        return mDatabase.child(idClient);
+    }
 }

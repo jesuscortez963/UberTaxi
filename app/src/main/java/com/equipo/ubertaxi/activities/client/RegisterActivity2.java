@@ -116,7 +116,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 if (task.isSuccessful()){
                     //Toast.makeText(RegisterActivity2.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity2.this, MapClientActivity.class);
-                    intent .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
                 else{

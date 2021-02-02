@@ -26,6 +26,9 @@ import androidx.core.content.ContextCompat;
 
 import com.equipo.ubertaxi.R;
 import com.equipo.ubertaxi.activities.MainActivity;
+import com.equipo.ubertaxi.activities.client.HistoryBookingClientActivity;
+import com.equipo.ubertaxi.activities.client.MapClientActivity;
+import com.equipo.ubertaxi.activities.client.UpdateProfileActivity;
 import com.equipo.ubertaxi.includes.MyToolbar;
 import com.equipo.ubertaxi.providers.AuthProvider;
 import com.equipo.ubertaxi.providers.GeofireProvider;
@@ -44,6 +47,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -69,23 +75,25 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
 
     private LatLng mCurrentLatLng;
 
+    private ValueEventListener mListener;
+
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             for (Location location : locationResult.getLocations()) {
                 if (getApplicationContext() != null) {
-                    mCurrentLatLng = new LatLng(location.getLatitude(),location.getLongitude());
+                    mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                     //para que el icono no se reproduzca
-                    if (mMarker!=null){
+                    if (mMarker != null) {
                         mMarker.remove();
                     }
                     //poner nuevo icono en el mapa
                     mMarker = mMap.addMarker(new MarkerOptions().position(
                             new LatLng(location.getLatitude(), location.getLongitude())
                             )
-                                .title("Tu posición")
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_coche))
-                            );
+                            .title("Tu posición")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons_coche))
+                    );
                     //OBTENER LA LOCALIZACION DEL USUARIO EN TIEMPÓ REAL
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                             new CameraPosition.Builder()
@@ -97,7 +105,6 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
                     updateLocation();
 
                 }
-
             }
         }
     };
@@ -119,7 +126,7 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
 
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
-        mGeofireProvider= new GeofireProvider();
+        mGeofireProvider= new GeofireProvider("active_drivers");
 
         mButtonConnect = findViewById(R.id.btnConnect);
         mButtonConnect.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +142,31 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
         generateToken();
+        isDriverWorking();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mListener != null){
+            mGeofireProvider.isDriverWorking(mAuthProvider.getId()).removeEventListener(mListener);
+        }
+    }
+
+    private void isDriverWorking() {
+        mListener=mGeofireProvider.isDriverWorking(mAuthProvider.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    disconnect();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void updateLocation(){
@@ -148,7 +180,7 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //para instalar botones de menos y mas
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
         //crear el punto de ubicacion
 
 
@@ -193,13 +225,7 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SETTINGS_REQUEST_CODE && gpsActived()) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+
                 return;
             }
             mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
@@ -303,6 +329,14 @@ public class MapDriverActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_logout){
             logout();
+        }
+        if (item.getItemId() == R.id.action_update){
+            Intent intent = new Intent(MapDriverActivity.this, UpdateProfileDriverActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_history){
+            Intent intent = new Intent(MapDriverActivity.this, HistoryBookingDriverActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

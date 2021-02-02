@@ -8,6 +8,10 @@ public class Driver {
     String vehiclePlate;
     String circulationCard;
     String officialIdentification;
+    String image;
+
+    public Driver() {
+    }
 
     public Driver(String id, String name, String email, String vehicleBrand, String vehiclePlate, String circulationCard, String officialIdentification) {
         this.id = id;
@@ -17,6 +21,15 @@ public class Driver {
         this.vehiclePlate = vehiclePlate;
         this.circulationCard = circulationCard;
         this.officialIdentification = officialIdentification;
+
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getId() {

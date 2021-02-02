@@ -77,4 +77,5 @@
         android:textColor="@color/colorBlack"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

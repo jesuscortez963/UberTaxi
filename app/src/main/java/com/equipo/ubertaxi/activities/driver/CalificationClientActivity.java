@@ -29,6 +29,7 @@ public class CalificationClientActivity extends AppCompatActivity {
 
     private TextView mTextViewOrigin;
     private TextView mTextViewDestination;
+    private TextView mTextViewPrice;
     private RatingBar mRatingBar;
     private Button mButtonCalification;
 
@@ -41,6 +42,8 @@ public class CalificationClientActivity extends AppCompatActivity {
 
     private float mCalification = 0;
 
+    private double mExtraPrice = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,15 @@ public class CalificationClientActivity extends AppCompatActivity {
         mTextViewDestination = findViewById(R.id.textViewDestinationCalification);
         mRatingBar = findViewById(R.id.ratingbarCalification);
         mButtonCalification = findViewById(R.id.btnCalification);
+        mTextViewPrice = findViewById(R.id.textViewPrice);
 
         mClientBookingProvider = new ClientBookingProvider();
         mHistoryBookingProvider = new HistoryBookingProvider();
 
         mExtraClientId = getIntent().getStringExtra("idClient");
+        mExtraPrice = getIntent().getDoubleExtra("price",0);
+
+        mTextViewPrice.setText(String.format("%.0f", mExtraPrice)  + "$");
 
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

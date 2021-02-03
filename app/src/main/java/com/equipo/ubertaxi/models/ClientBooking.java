@@ -13,6 +13,7 @@ public class ClientBooking {
     double originLng;
     double destinationLat;
     double destinationLng;
+    double price;
 
     public ClientBooking(){
 
@@ -45,6 +46,22 @@ public class ClientBooking {
         this.originLng = originLng;
         this.destinationLat = destinationLat;
         this.destinationLng = destinationLng;
+    }
+
+    public ClientBooking(String idHistoryBooking, String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLng, double destinationLat, double destinationLng, double price) {
+        this.idHistoryBooking = idHistoryBooking;
+        this.idClient = idClient;
+        this.idDriver = idDriver;
+        this.destination = destination;
+        this.origin = origin;
+        this.time = time;
+        this.km = km;
+        this.status = status;
+        this.originLat = originLat;
+        this.originLng = originLng;
+        this.destinationLat = destinationLat;
+        this.destinationLng = destinationLng;
+        this.price = price;
     }
 
     public String getIdHistoryBooking() {
@@ -141,5 +158,13 @@ public class ClientBooking {
 
     public void setDestinationLng(double destinationLng) {
         this.destinationLng = destinationLng;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

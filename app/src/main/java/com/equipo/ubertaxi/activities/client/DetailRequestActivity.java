@@ -1,5 +1,6 @@
 package com.equipo.ubertaxi.activities.client;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.equipo.ubertaxi.R;
 import com.equipo.ubertaxi.activities.driver.RegisterDriverActivity;
 import com.equipo.ubertaxi.includes.MyToolbar;
+import com.equipo.ubertaxi.models.Info;
 import com.equipo.ubertaxi.providers.GoogleApiProvider;
+import com.equipo.ubertaxi.providers.InfoProvider;
 import com.equipo.ubertaxi.utils.DecodePoints;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +29,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.SquareCap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +42,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Integer.parseInt;
 
 public class DetailRequestActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -54,6 +62,7 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private LatLng mDestinationLatLng;
 
     private GoogleApiProvider mGoogleApiProvider;
+    private InfoProvider mInfoProvider;
 
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
@@ -61,7 +70,7 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private TextView mTextViewOrigin;
     private TextView mTextViewDestination;
     private TextView mTextViewTime;
-    private TextView mTextViewDistance;
+    private TextView mTextViewPrice;
 
     private Button mButtonRequest;
     private CircleImageView mCircleImageBack;
@@ -91,9 +100,11 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
         mGoogleApiProvider = new GoogleApiProvider(DetailRequestActivity.this);
 
+        mInfoProvider = new InfoProvider();
+
         mTextViewOrigin = findViewById(R.id.textViewOrigin);
         mTextViewDestination = findViewById(R.id.textViewDestination);
-        mTextViewDistance = findViewById(R.id.textViewDistance);
+        mTextViewPrice = findViewById(R.id.textViewPrice);
         mTextViewTime = findViewById(R.id.textViewTime);
         mButtonRequest = findViewById(R.id.btnRequestNow);
 
@@ -154,8 +165,16 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
                     JSONObject duration = leg.getJSONObject("duration");
                     String distanceText = distance.getString("text");
                     String durationText = duration.getString("text");
-                    mTextViewTime.setText(durationText);
-                    mTextViewDistance.setText(distanceText);
+                    mTextViewTime.setText(durationText + " " + distanceText);
+
+                    String[] distanceAndKm = distanceText.split(" ");
+                    double distanceValue = Double.parseDouble((distanceAndKm[0]));
+
+                    String[] durationAndMins = distanceText.split(" ");
+                    double durationValue = Double.parseDouble((durationAndMins[0]));
+
+                    calculatePrice(distanceValue, durationValue);
+
 
 
                 } catch(Exception e) {
@@ -165,6 +184,27 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void calculatePrice(double distanceValue, double durationValue) {
+        mInfoProvider.getInfo().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Info info = snapshot.getValue(Info.class);
+                    double totalDistance = distanceValue * info.getKm();
+                    double totalDuration = durationValue * info.getMin();
+                    double total = totalDistance + totalDuration;
+
+                    mTextViewPrice.setText(String.format("%.0f",total) + "$");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.client.DetailRequestActivity"
-    android:background="@color/colorMoradoB">
+    android:background="@color/colorBlack">
 
 
 
@@ -31,7 +31,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorMoradoB" />
+            android:background="@color/colorBlack" />
 
         <!-- YOUR CONTENT -->
 
@@ -135,7 +135,7 @@
                     <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tiempo"
+                    android:text="Tiempo y distancia"
                     android:textSize="16sp"
                     android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
@@ -161,21 +161,21 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/icon_maps"/>
+                        android:src="@drawable/ic_mone"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Distancia"
+                        android:text="Precio"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorWhite"/>
 
                     <TextView
-                        android:id="@+id/textViewDistance"
+                        android:id="@+id/textViewPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 Km"
+                        android:text="0$"
                         android:textSize="16sp"
                         android:textColor="@color/colorWhite"/>
 

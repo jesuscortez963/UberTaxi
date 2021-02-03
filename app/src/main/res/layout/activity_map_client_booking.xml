@@ -4,98 +4,122 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlack"
     tools:context=".activities.client.MapClientBookingActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:contentPadding="15dp"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/colorMoradoB"
+        app:cardCornerRadius="20dp">
 
         <TextView
             android:id="@+id/textViewStatusBooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado"/>
+            android:text="Estado"
+            android:textColor="@color/colorWhite"
+            />
 
     </androidx.cardview.widget.CardView>
     
-    <LinearLayout
+
+
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginBottom="150dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
 
-        <fragment
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            />
+    <com.github.florent37.shapeofview.shapes.BubbleView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        app:shape_bubble_arrowHeight="15dp"
+        app:shape_bubble_arrowWidth="15dp"
+        app:shape_bubble_arrowPosition="top"
+        app:shape_bubble_borderRadius="20dp"
+        android:layout_gravity="bottom">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack" />
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp">
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewClientBooking"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/man"
+                android:layout_gravity="center"
+                android:layout_marginLeft="7dp"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/colorWhite"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginLeft="7dp">
 
-                <ImageView
-                    android:id="@+id/imageViewClientBooking"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/icon_user"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textViewOriginDriverBooking"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="Lugar de recogida"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:maxLines="2"/>
 
-                    <TextView
-                        android:id="@+id/textViewOriginDriverBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lugar de recogida"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/textViewDestinationDriverBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Destino"
+                    android:textColor="@color/colorWhite"
+                    android:maxLines="2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"/>
 
-                    <TextView
-                        android:id="@+id/textViewDestinationDriverBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Destino"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/textViewDriverBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del conductor"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:maxLines="1"/>
 
-                    <TextView
-                        android:id="@+id/textViewDriverBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre del conductor"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:id="@+id/textViewEmailDriverBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email del usuario"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:textSize="16sp"/>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewEmailDriverBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email del usuario"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:maxLines="1"/>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-    </LinearLayout>
+
+    </com.github.florent37.shapeofview.shapes.BubbleView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

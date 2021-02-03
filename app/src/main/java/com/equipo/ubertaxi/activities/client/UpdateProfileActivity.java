@@ -40,11 +40,14 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UpdateProfileActivity extends AppCompatActivity {
 
     private ImageView mImageViewProfile;
     private Button mButtonUpdate;
     private TextView mTextViewName;
+    private CircleImageView mCircleImageBack;
 
     private ClientProvider mClientProvider;
     private AuthProvider mAuthProvider;
@@ -61,11 +64,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
-        MyToolbar.show(this,"Actualizar perfil",true);
+
 
         mImageViewProfile = findViewById(R.id.imageViewProfile);
         mButtonUpdate = findViewById(R.id.btnUpdateProfile);
         mTextViewName = findViewById(R.id.textInputName);
+        mCircleImageBack = findViewById(R.id.circleImageBack);
 
         mClientProvider = new ClientProvider();
         mAuthProvider = new AuthProvider();
@@ -87,6 +91,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateProfile();
+            }
+        });
+
+        mCircleImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

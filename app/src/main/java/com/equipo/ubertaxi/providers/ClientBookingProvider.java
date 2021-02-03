@@ -33,6 +33,12 @@ public class ClientBookingProvider {
         map.put("idHistoryBooking", idPush);
         return  mDatabase.child(idClientBooking).updateChildren(map);
     }
+    public Task<Void> updatePrice(String idClientBooking, double price){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("price", price);
+        return  mDatabase.child(idClientBooking).updateChildren(map);
+    }
 
     public DatabaseReference getStatus(String idClientBooking ){
         return mDatabase.child(idClientBooking).child("status");

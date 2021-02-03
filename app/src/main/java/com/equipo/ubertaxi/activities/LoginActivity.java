@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                         else {
-                                            Toast.makeText(LoginActivity.this, "No es un usuario permitido", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, "Usuario no permitido", Toast.LENGTH_SHORT).show();
                                             mAuth.signOut();
                                         }
 
